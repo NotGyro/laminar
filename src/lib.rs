@@ -39,14 +39,14 @@ pub use self::packet::{DeliveryGuarantee, OrderingGuarantee, Packet};
 #[cfg(feature = "tester")]
 pub use self::throughput::ThroughputMonitoring;
 
-mod config;
-mod either;
-mod error;
-mod infrastructure;
-mod net;
-mod packet;
-mod protocol_version;
-mod sequence_buffer;
+pub mod config;
+pub mod either;
+pub mod error;
+pub mod infrastructure;
+pub mod net;
+pub mod packet;
+pub mod protocol_version;
+pub mod sequence_buffer;
 
 #[cfg(feature = "tester")]
 mod throughput;
