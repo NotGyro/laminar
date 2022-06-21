@@ -32,7 +32,7 @@
 pub use self::config::Config;
 pub use self::error::{ErrorKind, Result};
 pub use self::net::{
-    Connection, ConnectionManager, ConnectionMessenger, DatagramSocket, LinkConditioner, Socket,
+    Connection, ConnectionMessenger, LinkConditioner,
     SocketEvent, VirtualConnection,
 };
 pub use self::packet::{DeliveryGuarantee, OrderingGuarantee, Packet};
@@ -50,6 +50,3 @@ pub mod sequence_buffer;
 
 #[cfg(feature = "tester")]
 mod throughput;
-
-#[cfg(test)]
-pub mod test_utils;

@@ -6,10 +6,6 @@ use std::{
     io, result,
 };
 
-use crossbeam_channel::SendError;
-
-use crate::SocketEvent;
-
 /// Wrapped result type for Laminar errors.
 pub type Result<T> = result::Result<T, ErrorKind>;
 
@@ -28,8 +24,6 @@ pub enum ErrorKind {
     ReceivedDataToShort,
     /// Protocol versions did not match
     ProtocolVersionMismatch,
-    /// Could not send on `SendChannel`.
-    SendError(SendError<SocketEvent>),
     /// Expected header but could not be read from buffer.
     CouldNotReadHeader(String),
 }
@@ -59,11 +53,6 @@ impl Display for ErrorKind {
             ErrorKind::ProtocolVersionMismatch => {
                 write!(fmt, "The protocol versions do not match.")
             }
-            ErrorKind::SendError(e) => write!(
-                fmt,
-                "Could not sent on channel because it was closed. Reason: {:?}",
-                e
-            ),
             ErrorKind::CouldNotReadHeader(header) => write!(
                 fmt,
                 "Expected {} header but could not be read from buffer.",
@@ -189,12 +178,6 @@ impl From<PacketErrorKind> for ErrorKind {
 impl From<FragmentErrorKind> for ErrorKind {
     fn from(inner: FragmentErrorKind) -> Self {
         ErrorKind::FragmentError(inner)
-    }
-}
-
-impl From<crossbeam_channel::SendError<SocketEvent>> for ErrorKind {
-    fn from(inner: SendError<SocketEvent>) -> Self {
-        ErrorKind::SendError(inner)
     }
 }
 

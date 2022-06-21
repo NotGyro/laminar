@@ -1,12 +1,13 @@
 [package]
 name = "laminar"
-version = "0.5.1"
+version = "0.5.2"
 authors = [
     "Lucio Franco <luciofranco14@gmail.com>",
     "Fletcher Haynes <fletcher@capitalprawn.com>",
     "TimonPost <timonpost@hotmail.nl>",
     "Justin LeFebvre <jstnlefebvre@gmail.com>"
-] # Given that I've really just been making fields public I don't feel like I belong on this list yet.
+] # Given that I've really just been making fields public and stripping
+# things I don't use out of the codebase, I don't feel like I belong on this list yet.
 description = "A simple semi-reliable UDP protocol for multiplayer games"
 keywords = ["gamedev", "networking", "udp", "amethyst"]
 categories = ["game-engines", "network-programming"]
@@ -15,21 +16,17 @@ exclude = ["examples/*", "docs/*", "benches/*"]
 readme = "README.md"
 license = "MIT/Apache-2.0"
 
-repository = "https://github.com/amethyst/laminar"
+repository = "https://github.com/NotGyro/laminar"
 autobenches = false
 edition = "2018"
 
 [dependencies]
 byteorder = "1.4.3"
 crc = "1.8"
-crossbeam-channel = "0.5"
 lazy_static = "1.4"
 log = "0.4"
 rand = "0.8"
 rand_pcg = "0.3"
-
-clap = { version = "2.33", features = ["yaml"], optional = true }
-env_logger = { version = "0.9", optional = true }
 
 [dev-dependencies]
 bincode = "1.3.1"
@@ -38,18 +35,3 @@ serde = "1.0"
 serde_derive = "1.0"
 quickcheck = "1.0"
 quickcheck_macros = "1.0"
-
-[features]
-tester = [
-  "env_logger",
-  "clap"
-]
-
-[[bench]]
-name = "packet_processing"
-path = "benches/packet_processing.rs"
-harness = false
-
-[[bin]]
-name = "laminar-tester"
-required-features = ["tester"]
